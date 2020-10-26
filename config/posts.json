@@ -1,0 +1,307 @@
+{
+  "posts": [
+    {
+      "content": "首先，安装 Python 图像处理库 pillow（PIL）\r\n```Python\r\n# -*- coding=utf-8 -*-\r\n\r\nfrom PIL import Image\r\nimport argparse\r\n\r\n#命令行输入参数处理\r\nparser = argparse.ArgumentParser()\r\n\r\nparser.add_argument('file')     #输入文件\r\nparser.add_argument('-o', '--output')   #输出文件\r\nparser.add_argument('--width', type = int, default = 80) #输出字符画宽\r\nparser.add_argument('--height', type = int, default = 80) #输出字符画高\r\n\r\n#获取参数\r\nargs = parser.parse_args()\r\n\r\nIMG = args.file\r\nWIDTH = args.width\r\nHEIGHT = args.height\r\nOUTPUT = args.output\r\n\r\nascii_char = list(\"$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,\\\"^`'. \")\r\n\r\n# 将256灰度映射到70个字符上\r\ndef get_char(r,g,b,alpha = 256):\r\n    if alpha == 0:\r\n        return ' '\r\n    length = len(ascii_char)\r\n    gray = int(0.2126 * r + 0.7152 * g + 0.0722 * b)\r\n\r\n    unit = (256.0 + 1)/length\r\n    return ascii_char[int(gray/unit)]\r\n\r\nif __name__ == '__main__':\r\n\r\n    # 打开并调整图片的宽和高\r\n    im = Image.open(IMG)\r\n    im = im.resize((WIDTH,HEIGHT), Image.NEAREST)\r\n\r\n    # 初始化输出的字符串\r\n    txt = \"\"\r\n\r\n    # 遍历图片中的每一行\r\n    for i in range(HEIGHT):\r\n        # 遍历该行中的每一列\r\n        for j in range(WIDTH):\r\n            # 将 (j,i) 坐标的 RGB 像素转为字符后添加到 txt 字符串\r\n            txt += get_char(*im.getpixel((j,i)))\r\n        # 遍历完一行后需要增加换行符\r\n        txt += '\\n'\r\n    # 输出到屏幕\r\n    print(txt)\r\n\r\n    # 字符画输出到文件\r\n    if OUTPUT:\r\n        with open(OUTPUT,'w') as f:\r\n            f.write(txt)\r\n    else:\r\n        with open(\"output.txt\",'w') as f:\r\n            f.write(txt)\r\n\r\n```\r\n使用图片https://labfile.oss.aliyuncs.com/courses/370/ascii_dora.png\r\n在命令行使用命令\r\n`python ascii.py ascii_dora.png`\r\n效果：\r\n![效果图](https://cdn.jsdelivr.net/gh/ZSakuraTears/cdn/img/notepad_DvSgM1djjf.png)",
+      "data": {
+        "title": "Python实现图片转字符画",
+        "date": "2020-10-26 20:37:31",
+        "tags": [
+          "Python"
+        ],
+        "published": true,
+        "hideInList": false,
+        "feature": "https://cdn.jsdelivr.net/gh/Zhao-Master/cdn/img/(1).jpg.webp",
+        "isTop": false
+      },
+      "isEmpty": false,
+      "excerpt": "",
+      "abstract": "",
+      "fileName": "python-shi-xian-tu-pian-zhuan-zi-fu-hua"
+    },
+    {
+      "content": "由于政策原因使用pip(pycharm也是)装第三方库有时会很慢有时会失败，有条件的可以使用不可描述方法进行安装或者我们可以使用清华源镜像装库\r\n链接https://mirrors.tuna.tsinghua.edu.cn/help/pypi/",
+      "data": {
+        "title": "Python解决用pip装第三方库慢的方法",
+        "date": "2020-10-24 18:48:49",
+        "tags": [
+          "Python"
+        ],
+        "published": true,
+        "hideInList": false,
+        "feature": null,
+        "isTop": false
+      },
+      "isEmpty": false,
+      "excerpt": "",
+      "abstract": "",
+      "fileName": "python-jie-jue-yong-pip-zhuang-di-san-fang-ku-man-de-fang-fa"
+    },
+    {
+      "content": "> 欢迎来到我的小站呀，很高兴遇见你！🤝\n\n## 🏠 关于本站\n在使用一段时间hexo后还是放弃了hexo选择了简单方便的Gridea（其实就是不会用hexo）\n感谢Ericam_blog大佬的fog主题\n## 👨‍💻 关于博主\n一枚啥也不会的菜鸡程序猿\n主攻python开发，机器学习略知一二（狗头保命！）\n## 📬 联系我呀\nQQ：2538598846\n微信：2538598846\n欢迎好友交流😎\n\n",
+      "data": {
+        "title": "奇妙的自我描述",
+        "date": "2020-10-23 19:09:48",
+        "tags": [],
+        "published": true,
+        "hideInList": true,
+        "feature": null,
+        "isTop": false
+      },
+      "isEmpty": false,
+      "excerpt": "",
+      "abstract": "",
+      "fileName": "about"
+    },
+    {
+      "content": "本文转载自知乎“洛谷网校 阮行止”\r\n\r\n网址：https://www.zhihu.com/question/21923021/answer/1032665486?utm_source=qq&utm_medium=social&utm_oi=952480495343259648\r\n\r\nKMP算法是一种**字符串匹配**算法，可以在 O(n+m) 的时间复杂度内实现两个字符串的匹配。本文将引导您学习KMP算法。\r\n\r\n#### 字符串匹配问题\r\n 所谓字符串匹配，是这样一种问题：“字符串 P 是否为字符串 S 的子串？如果是，它出现在 S 的哪些位置？” 其中 S 称为**主串**；P 称为**模式串**。下面的图片展示了一个例子。\r\n\r\n![图](https://pic4.zhimg.com/v2-2967e415f490e03a2a9400a92b185310_r.jpg?source=1940ef5c)\r\n\r\n主串是莎翁那句著名的 “to be or not to be”，这里删去了空格。“no” 这个模式串的匹配结果是“出现了一次，从S[6]开始”；“ob”这个模式串的匹配结果是“出现了两次，分别从s[1]、s[10]开始”。按惯例，主串和模式串都以0开始编号。\r\n　　字符串匹配是一个非常频繁的任务。例如，今有一份名单，你急切地想知道自己在不在名单上；又如，假设你拿到了一份文献，你希望快速地找到某个关键字（keyword）所在的章节……凡此种种，不胜枚举。\r\n　　我们先从最朴素的Brute-Force算法开始讲起。\r\n　　\r\n#### Brute-Force\r\n\r\n顾名思义，Brute-Force是一个纯暴力算法。说句题外话，我怀疑，“暴力”一词在算法领域表示“穷举、极低效率的实现”，可能就是源于这个英文词。\r\n　　首先，我们应该如何实现两个字符串 A,B 的比较？所谓**字符串比较**，就是问“两个字符串是否相等”。最朴素的思想，就是从前往后逐字符比较，一旦遇到不相同的字符，就返回False；如果两个字符串都结束了，仍然没有出现不对应的字符，则返回True。实现如下：\r\n![图](https://pic2.zhimg.com/80/v2-f9a7d55f60e346529f70c409dfcda786_720w.jpg?source=1940ef5c)\r\n\r\n既然我们可以知道“两个字符串是否相等”，那么最朴素的字符串匹配算法 Brute-Force 就呼之欲出了——\r\n· 枚举 i = 0, 1, 2 ... , len(S)-len(P)\r\n· 将 S[i : i+len(P)] 与 P 作比较。如果一致，则找到了一个匹配。\r\n\r\n现在我们来模拟 Brute-Force 算法，对主串 “AAAAAABC” 和模式串 “AAAB” 做匹配：\r\n![图](https://pic3.zhimg.com/80/v2-1892c7f6bee02e0fc7baf22aaef7151f_720w.jpg?source=1940ef5c)\r\n这是一个清晰明了的算法，实现也极其简单。下面给出Python和C++的实现：\r\n![图](https://pic4.zhimg.com/80/v2-36589bc0279263ec8641a295aea66a0c_720w.jpg?source=1940ef5c)\r\n![图](https://pic4.zhimg.com/80/v2-ed28c8d60516720cc38c48d135091a58_720w.jpg?source=1940ef5c)\r\n\r\n我们成功实现了 Brute-Force 算法。现在，我们需要对它的时间复杂度做一点讨论。按照惯例，记 n = |S| 为串 S 的长度，m = |P| 为串 P 的长度。\r\n　　考虑“字符串比较”这个小任务的复杂度。最坏情况发生在：两个字符串唯一的差别在最后一个字符。这种情况下，字符串比较必须走完整个字符串，才能给出结果，因此复杂度是 O(len) 的。　　\r\n\r\n　　由此，不难想到 Brute-Force 算法所面对的最坏情况：主串形如“AAAAAAAAAAA...B”，而模式串形如“AAAAA...B”。每次字符串比较都需要付出 |P| 次字符比较的代价，总共需要比较 |S| - |P| + 1次，因此总时间复杂度是  ![[公式]](https://www.zhihu.com/equation?tex=O%28%7CP%7C%5Ccdot+%28%7CS%7C+-+%7CP%7C+%2B+1%29+%29) . 考虑到主串一般比模式串长很多，故 Brute-Force 的复杂度是 ![[公式]](https://www.zhihu.com/equation?tex=O%28%7CP%7C+%5Ccdot+%7CS%7C%29) ，也就是 O(nm)的。这太慢了！\r\n\r\n\r\n\r\n#### Brute-Force的改进思路\r\n经过刚刚的分析，您已经看到，Brute-Force 慢得像爬一样。它最坏的情况如下图所示：\r\n![图](https://pic4.zhimg.com/80/v2-4fe5612ff13a6286e1a8e50a0b06cd96_720w.jpg?source=1940ef5c)\r\n\r\n我们很难降低字符串比较的复杂度（因为比较两个字符串，真的只能逐个比较字符）。因此，我们考虑**降低比较的趟数**。如果比较的趟数能降到足够低，那么总的复杂度也将会下降很多。　　要优化一个算法，首先要回答的问题是“我手上有什么信息？”　我们手上的信息是否足够、是否有效，决定了我们能把算法优化到何种程度。请记住：**尽可能利用残余的信息，是KMP算法的思想所在**。\r\n　　在 Brute-Force 中，如果从 S[i] 开始的那一趟比较失败了，算法会直接开始尝试从 S[i+1] 开始比较。这种行为，属于典型的“没有从之前的错误中学到东西”。我们应当注意到，一次失败的匹配，会给我们提供宝贵的信息——如果 S[i : i+len(P)] 与 P 的匹配是在第 r 个位置失败的，那么从 S[i] 开始的 (r-1) 个连续字符，一定与 P 的前 (r-1) 个字符一模一样！\r\n\r\n![图](https://pic2.zhimg.com/80/v2-7dc61b0836af61e302d9474eeeecfe83_720w.jpg?source=1940ef5c)\r\n\r\n需要实现的任务是“字符串匹配”，而每一次失败都会给我们换来一些信息——能告诉我们，主串的某一个子串等于模式串的某一个前缀。但是这又有什么用呢？\r\n\r\n#### 跳过不可能成功的字符串比较\r\n\r\n有些趟字符串比较是有可能会成功的；有些则毫无可能。我们刚刚提到过，优化 Brute-Force 的路线是“尽量减少比较的趟数”，而如果我们跳过那些**绝不可能成功的**字符串比较，则可以希望复杂度降低到能接受的范围。\r\n　　那么，哪些字符串比较是不可能成功的？来看一个例子。已知信息如下：\r\n\r\n- 模式串 P = \"abcabd\".\r\n- 和主串从S[0]开始匹配时，在 P[5] 处失配。\r\n\r\n![img](https://pic4.zhimg.com/50/v2-372dc6c567ba53a1e4559fdb0cb6b206_hd.jpg?source=1940ef5c)\r\n\r\n\r\n\r\n首先，利用上一节的结论。既然是在 P[5] 失配的，那么说明 S[0:5] 等于 P[0:5]，即\"abcab\". 现在我们来考虑：从 S[1]、S[2]、S[3] 开始的匹配尝试，有没有可能成功？\r\n　　从 S[1] 开始肯定没办法成功，因为 S[1] = P[1] = 'b'，和 P[0] 并不相等。从 S[2] 开始也是没戏的，因为 S[2] = P[2] = 'c'，并不等于P[0]. 但是从 S[3] 开始是有可能成功的——至少按照已知的信息，我们推不出矛盾。\r\n\r\n![img](https://pic4.zhimg.com/50/v2-67dd66b86323d3d08f976589cf712a1a_hd.jpg?source=1940ef5c)\r\n\r\n　　带着“跳过不可能成功的尝试”的思想，我们来看next数组。\r\n\r\n\r\n\r\n#### next数组\r\n\r\nnext数组是对于模式串而言的。P 的 next 数组定义为：next[i] 表示 P[0] ~ P[i] 这一个子串，使得 **前k个字符**恰等于**后k个字符** 的最大的k. 特别地，k不能取i+1（因为这个子串一共才 i+1 个字符，自己肯定与自己相等，就没有意义了）。\r\n\r\n![img](https://pic2.zhimg.com/80/v2-49c7168b5184cc1744459f325e426a4a_720w.jpg?source=1940ef5c)\r\n\r\n　　上图给出了一个例子。P=\"abcabd\"时，next[4]=2，这是因为P[0] ~ P[4] 这个子串是\"abcab\"，前两个字符与后两个字符相等，因此next[4]取2. 而next[5]=0，是因为\"abcabd\"找不到前缀与后缀相同，因此只能取0. \r\n\r\n　　如果把模式串视为一把标尺，在主串上移动，那么 Brute-Force 就是每次失配之后只右移一位；改进算法则是**每次失配之后，移很多位**，跳过那些不可能匹配成功的位置。但是该如何确定要移多少位呢？\r\n\r\n![img](https://pic4.zhimg.com/80/v2-d6c6d433813595dce5aad08b40dc0b72_720w.jpg?source=1940ef5c)\r\n\r\n　　在 S[0] 尝试匹配，失配于 S[3] <=> P[3] 之后，我们直接把模式串往右移了两位，让 S[3] 对准 P[1]. 接着继续匹配，失配于 S[8] <=> P[6], 接下来我们把 P 往右平移了三位，把 S[8] 对准 P[3]. 此后继续匹配直到成功。\r\n　　我们应该如何移动这把标尺？**很明显，如图中蓝色箭头所示，旧的后缀要与新的前缀一致**（如果不一致，那就肯定没法匹配上了）！\r\n\r\n\r\n　　回忆next数组的性质：P[0] 到 P[i] 这一段子串中，前next[i]个字符与后next[i]个字符一模一样。既然如此，如果失配在 P[r], 那么P[0]~P[r-1]这一段里面，**前next[r-1]个字符恰好和后next[r-1]个字符相等**——也就是说，我们可以拿长度为 next[r-1] 的那一段前缀，来顶替当前后缀的位置，让匹配继续下去！\r\n　　您可以验证一下上面的匹配例子：P[3]失配后，把P[next[3-1]]也就是P[1]对准了主串刚刚失配的那一位；P[6]失配后，把P[next[6-1]]也就是P[3]对准了主串刚刚失配的那一位。\r\n\r\n![img](https://pic2.zhimg.com/80/v2-6ddb50d021e9fa660b5add8ea225383a_720w.jpg?source=1940ef5c)\r\n\r\n　　如上图所示，绿色部分是成功匹配，失配于红色部分。深绿色手绘线条标出了相等的前缀和后缀，**其长度为next[右端]**. 由于手绘线条部分的字符是一样的，所以直接把前面那条移到后面那条的位置。因此说，**next数组为我们如何移动标尺提供了依据**。接下来，我们实现这个优化的算法。\r\n\r\n\r\n\r\n#### 利用next数组进行匹配\r\n\r\n了解了利用next数组加速字符串匹配的原理，我们接下来代码实现之。分为两个部分：建立next数组、利用next数组进行匹配。\r\n　　首先是建立next数组。我们暂且用最朴素的做法，以后再回来优化：\r\n\r\n![img](https://pic1.zhimg.com/50/v2-1dda8f33e5847449cd9784e76e972cab_hd.jpg?source=1940ef5c)![img](https://pic1.zhimg.com/80/v2-1dda8f33e5847449cd9784e76e972cab_720w.jpg?source=1940ef5c)\r\n\r\n　　如上图代码所示，直接根据next数组的定义来建立next数组。不难发现它的复杂度是 ![[公式]](https://www.zhihu.com/equation?tex=O%28m%5E2%29) 的。\r\n　　接下来，实现利用next数组加速字符串匹配。代码如下：\r\n\r\n![img](https://pic2.zhimg.com/50/v2-a6bd81af7cf9bbda32b2cfb0e4858276_hd.jpg?source=1940ef5c)\r\n\r\n　　如何分析这个字符串匹配的复杂度呢？乍一看，pos值可能不停地变成next[pos-1]，代价会很高；但我们使用摊还分析，显然pos值一共顶多自增len(S)次，因此pos值减少的次数不会高于len(S)次。由此，复杂度是可以接受的，不难分析出整个匹配算法的时间复杂度：O(n+m).\r\n\r\n\r\n\r\n#### 快速求next数组\r\n\r\n终于来到了我们最后一个问题——如何快速构建next数组。\r\n　　首先说一句：快速构建next数组，是KMP算法的精髓所在，核心思想是“**P自己与自己做匹配**”。\r\n　　为什么这样说呢？回顾next数组的完整定义：\r\n\r\n- 定义 “k-前缀” 为一个字符串的前 k 个字符； “k-后缀” 为一个字符串的后 k 个字符。k 必须小于字符串长度。 \r\n- next[x] 定义为： P[0]~P[x] 这一段字符串，使得**k-前缀恰等于k-后缀**的最大的k.\r\n\r\n　　这个定义中，不知不觉地就包含了一个匹配——前缀和后缀相等。接下来，我们考虑采用递推的方式求出next数组。如果next[0], next[1], ... next[x-1]均已知，那么如何求出 next[x] 呢？\r\n\r\n　　来分情况讨论。首先，已经知道了 next[x-1]（以下记为now），如果 P[x] 与 P[now] 一样，那最长相等前后缀的长度就可以扩展一位，很明显 next[x] = now + 1. 图示如下。\r\n\r\n![img](https://pic3.zhimg.com/80/v2-6d6a40331cd9e44bfccd27ac5a764618_720w.jpg?source=1940ef5c)\r\n\r\n\r\n　　刚刚解决了 P[x] = P[now] 的情况。那如果 P[x] 与 P[now] 不一样，又该怎么办？\r\n\r\n![img](https://pic1.zhimg.com/80/v2-ce1d46a1e3603b07a13789b6ece6022f_720w.jpg?source=1940ef5c)\r\n\r\n　　如图。长度为 now 的子串 A 和子串 B 是 P[0]~P[x-1] 中最长的公共前后缀。可惜 A 右边的字符和 B 右边的那个字符不相等，next[x]不能改成 now+1 了。因此，我们应该**缩短这个now**，把它改成小一点的值，再来试试 P[x] 是否等于 P[now].\r\n　　now该缩小到多少呢？显然，我们不想让now缩小太多。因此我们决定，在保持“P[0]~P[x-1]的now-前缀仍然等于now-后缀”的前提下，让这个新的now尽可能大一点。 P[0]~P[x-1] 的公共前后缀，前缀一定落在串A里面、后缀一定落在串B里面。换句话讲：接下来now应该改成：使得 **A的k-前缀**等于**B的k-后缀** 的最大的k.\r\n　　您应该已经注意到了一个非常强的性质——**串A和串B是相同的**！B的后缀等于A的后缀！因此，使得A的k-前缀等于B的k-后缀的最大的k，其实就是串A的最长公共前后缀的长度 —— next[now-1]！\r\n\r\n![img](https://pic2.zhimg.com/80/v2-c5ff4faaab9c3e13690deb86d8d17d71_720w.jpg?source=1940ef5c)\r\n\r\n　　来看上面的例子。当P[now]与P[x]不相等的时候，我们需要缩小now——把now变成next[now-1]，直到P[now]=P[x]为止。P[now]=P[x]时，就可以直接向右扩展了。\r\n\r\n　　代码实现如下：\r\n\r\n![img](https://pic4.zhimg.com/50/v2-010a582b0c92a92044c43a2a2ea88928_hd.jpg?source=1940ef5c)![img](https://pic4.zhimg.com/80/v2-010a582b0c92a92044c43a2a2ea88928_720w.jpg?source=1940ef5c)\r\n\r\n　　应用摊还分析，不难证明构建next数组的时间复杂度是O(m)的。至此，我们以O(n+m)的时间复杂度，实现了构建next数组、利用next数组进行字符串匹配。\r\n\r\n　　以上就是KMP算法。它于1977年被提出，全称 Knuth–Morris–Pratt 算法。让我们记住前辈们的名字：[Donald Knuth](https://link.zhihu.com/?target=https%3A//en.wikipedia.org/wiki/Donald_Knuth)(K), [James H. Morris](https://link.zhihu.com/?target=https%3A//en.wikipedia.org/wiki/James_H._Morris)(M), [Vaughan Pratt](https://link.zhihu.com/?target=https%3A//en.wikipedia.org/wiki/Vaughan_Pratt)(P).\r\n\r\n\r\n\r\n\r\n作者：阮行止\r\n链接：https://www.zhihu.com/question/21923021/answer/1032665486\r\n来源：知乎",
+      "data": {
+        "title": "KMP算法",
+        "date": "2020-10-23 15:02:13",
+        "tags": [
+          "算法"
+        ],
+        "published": true,
+        "hideInList": false,
+        "feature": "https://cdn.jsdelivr.net/gh/Zhao-Master/cdn/img/(7).jpg.webp",
+        "isTop": true
+      },
+      "isEmpty": false,
+      "excerpt": "",
+      "abstract": "",
+      "fileName": "kmp-suan-fa"
+    },
+    {
+      "content": "为了展示初级排序算法性质的价值，接下来我们将学习一种基于插入排序的快速的排序算法。\r\n对于大规模乱序数组插入排序很慢，因为它只会交换相邻的元素，因此元素只能一点一点地从数组的一端移动到另一端。例如，如果主键最小的元素正好在数组的尽头，要将它挪到正确的位置就需要№1次移动。希尔排序为了加快速度简单地改进了插入排序，交换不相邻的元素以对数组的局部进行排序，并最终用插入排序将局部有序的数组排序。\r\n\r\n实现希尔排序的一种方法是对于每个h，用插入排序将h个子数组独立地排序。但因为子数组是相互独立的，一个更简单的方法是在h-子数组中将每个元素交换到比它大的元素之前去（将比它大的元素向右移动一格）。只需要在插人排序的代码中将移动元素的距离由1改为h即可。这样，希尔排序的实现就转化为了一个类似于插人排序但使用不同增量的过程。\r\n\r\n希尔排序为插入排序高级版，先把几个部分的数组用插入排序排好，然后再把这几个分散数组排序成有序数组。\r\n确定一个增量h（h可以是数组总长/3 or /2），每次循环完增量变小直到为1，每次把分散的数组整合成一个大的有序数组，直到增量为1时，整个数组排序完成。\r\n\r\n```C/C++\r\nvoid shellsort(int a[], int m)\r\n{\r\n    int h = m / 2; //确定增量h\r\n    for (h; h >= 1; h /= 2) //每次增量变小\r\n    {\r\n        for (int i = h; i < m; i += h)\r\n        {\r\n            for (int j = i; j >= 0 && j - h >= 0 && a[j] < a[j - h]; j -= h)\r\n            {\r\n                int temp = a[j];\r\n                a[j] = a[j - h];\r\n                a[j - h] = temp;\r\n            }\r\n        }\r\n    }\r\n\r\n    for (int i = 0; i < m; i++)\r\n    {\r\n        cout << a[i] << \" \";\r\n    }\r\n}\r\n```",
+      "data": {
+        "title": "希尔排序",
+        "date": "2020-10-23 15:00:09",
+        "tags": [
+          "排序",
+          "算法"
+        ],
+        "published": true,
+        "hideInList": false,
+        "feature": "https://cdn.jsdelivr.net/gh/Zhao-Master/cdn/img/(4).jpg.webp",
+        "isTop": false
+      },
+      "isEmpty": false,
+      "excerpt": "",
+      "abstract": "",
+      "fileName": "xi-er-pai-xu"
+    },
+    {
+      "content": "快速排序的特点是他是原地排序（只需要一个很小的辅助栈），且长度为N的数组时间复杂度为NlgN。\r\n快速排序是一种分治的算法，他将一个数组分成两个数组，将两部分独立排序，在快排中切分的位置取决于数组的内容。\r\n取首元素为切分元素，比切分元素小的放到左边，比切分元素大的放到右边，再把两个数组切分，最后有序\r\n![图](https://cdn.jsdelivr.net/gh/ZSakuraTears/cdn/img/QQ%E5%9B%BE%E7%89%8720201015164728.jpg)\r\n```C/C++\r\nvoid qsort(int a[], int lo, int hi)\r\n{\r\n    if (lo >= hi)\r\n        return;\r\n    int i, j, m, temp, mid;\r\n    m = a[lo]; //切分元素\r\n    i = lo; //下面循环时i和j就会先自增/自减1再判断，所以i为头元素，j为尾元素 - 1\r\n    j = hi + 1;\r\n    while (true)\r\n    {\r\n        while (a[++i] < m)\r\n        {\r\n            if (i == hi)//直到循环到右边界也没有找到比切分元素大的元素\r\n                break;\r\n        }\r\n        while (a[--j] > m)\r\n        {\r\n            if (j == lo)//直到循环到左边界也没有找到比切分元素小的元素\r\n                break;\r\n        }\r\n        if (i >= j)//当i的位置在j的右边，a[i] > a[j],不可以交换\r\n            break;\r\n        int temp = a[i];\r\n        a[i] = a[j];\r\n        a[j] = temp;\r\n    }\r\n    temp = a[lo];\r\n    a[lo] = a[j];\r\n    a[j] = temp;\r\n    mid = j;\r\n    qsort(a, lo, mid - 1);\r\n    qsort(a, mid + 1, hi);\r\n}\r\n```",
+      "data": {
+        "title": "快速排序",
+        "date": "2020-10-23 14:59:36",
+        "tags": [
+          "算法",
+          "排序"
+        ],
+        "published": true,
+        "hideInList": false,
+        "feature": "https://cdn.jsdelivr.net/gh/Zhao-Master/cdn/img/(3).jpg.webp",
+        "isTop": false
+      },
+      "isEmpty": false,
+      "excerpt": "",
+      "abstract": "",
+      "fileName": "kuai-su-pai-xu"
+    },
+    {
+      "content": "归并排序将两个有序的排列归并为一个有序的排列。\r\n\r\n归并算法都基于归并这个简单的操作，即将两个有序的数组归并成一个更大的有序数组。很快人们就根据这个操作发明了一种简单的递归排序算法：归并排序。要将一个数组排序，可以先（递归地）将它分成两半分别排序，然后将结果归并起来：你将会看到，归并排序最\r\n吸引人的性质是它能够保证将任意长度为，的数组排序所需时间和，成正比；它的主要缺点则是它所需的额外空间。简单的归并排序如图所示。\r\n\r\n![图](https://cdn.jsdelivr.net/gh/ZSakuraTears/cdn/img/FoxitPhantom_6xnNTxUAow.png)\r\n\r\n#### 原地归并\r\n\r\n先创建一个数组aux将a的元素全部赋给aux。然后开始将两个有序的数组归并成一个有序的数组。\r\n将a[lo, mid]和a[mid + 1, hi]两个有序数组归并为一个有序数组\r\n![图](https://cdn.jsdelivr.net/gh/ZSakuraTears/cdn/img/FoxitPhantom_1FWin67kuQ.png)\r\n\r\n```C/C++\r\nvoid merge(int a[], int lo, int mid, int hi)\r\n{\r\n    int i, j;\r\n    i = lo;\r\n    j = mid + 1;\r\n    int aux[hi + 1];\r\n    for (int k = lo; k <= hi; k++)\r\n    {\r\n        aux[k] = a[k];\r\n    }\r\n    for (int k = lo; k <= hi; k++)\r\n    {\r\n        if (i > mid)\r\n        {\r\n            a[k] = aux[j++];\r\n        }\r\n        else if (j > hi)\r\n        {\r\n            a[k] = aux[i++];\r\n        }\r\n        else if (aux[j] < aux[i])\r\n        {\r\n            a[k] = aux[j++];\r\n        }\r\n        else\r\n        {\r\n            a[k] = aux[i++];\r\n        }\r\n    }\r\n}\r\n```\r\n当左边（mid为中界）元素已经全部赋值到a中时，则不需要再考虑左边元素，直接把右边剩余元素全部赋值给a即可  if(i > mid)\r\n当右边（mid为中界）元素已经全部赋值到a中时，则不需要再考虑右边元素，直接把左边剩余元素全部赋值给a即可  if(j > hi)\r\n如果右边当前元素小于左边当前元素则将右边当前元素赋给a,(aux[j] < aux[i])\r\n右边当前元素大于等于左边当前元素，最后一个else\r\n\r\n#### 自上向下\r\n\r\n自顶向下归并将一个数组先中间拆分，再把拆分的数组拆分，直到只有一个元素的数组，然后将每两个数组就行归并。最后归并为一个有序数组。\r\n![图](https://cdn.jsdelivr.net/gh/ZSakuraTears/cdn/img/FoxitPhantom_pNM5lWqMZA.png)\r\n![图](https://cdn.jsdelivr.net/gh/ZSakuraTears/cdn/img/FoxitPhantom_VlHXNLFh2k.png)\r\n\r\n```C/C++\r\nvoid gbsort(int a[], int lo, int hi)\r\n{\r\n    if (hi <= lo)\r\n    {\r\n        return;\r\n    }\r\n    int mid;\r\n    mid = lo + (hi - lo) / 2;\r\n    gbsort(a, lo, mid);\r\n    gbsort(a, mid + 1, hi);\r\n    merge(a, lo, mid, hi);\r\n}\r\n```\r\n#### 自底向上\r\n\r\n自底向上归并第一次每两个元素的数组归并，然后每四个，八个......归并，最终归并成一个有序数组\r\n![图](https://cdn.jsdelivr.net/gh/ZSakuraTears/cdn/img/FoxitPhantom_3ixOLZEZqD.png)\r\n\r\n```c/c++\r\nvoid gbsort(int a[], int lo, int hi)\r\n{\r\n    int n = hi + 1; //n为数组长度\r\n    for (int i = 1; i < n; i += i)//每次循环完了归并前一次翻倍的数组元素个数\r\n    {\r\n        for (int j = 0; j < n - i; j += i * 2)\r\n        {\r\n            if (j + i * 2 - 1 < hi)\r\n            {\r\n                merge(a, j, j + i - 1, j + i * 2 - 1);\r\n            }\r\n            else {\r\n                merge(a, j, j + i - 1, hi);\r\n            }\r\n        }\r\n    }\r\n}\r\n```",
+      "data": {
+        "title": "归并排序",
+        "date": "2020-10-23 14:57:28",
+        "tags": [
+          "算法",
+          "排序"
+        ],
+        "published": true,
+        "hideInList": false,
+        "feature": "https://cdn.jsdelivr.net/gh/Zhao-Master/cdn/img/(6).jpg.webp",
+        "isTop": false
+      },
+      "isEmpty": false,
+      "excerpt": "",
+      "abstract": "",
+      "fileName": "gui-bing-pai-xu"
+    },
+    {
+      "content": "### 题目描述\r\n\r\n![洛谷](https://cdn.jsdelivr.net/gh/ZSakuraTears/cdn/img/chrome_kZgFEYVhht.png)\r\n\r\n### 输入格式\r\n输入的每行有两个输入数据。\r\n第一个是十进制数 n。 第二个是负进制数的基数 −R。\r\n\r\n### 输出格式\r\n输出此负进制数及其基数，若此基数超过 10，则参照 16 进制的方式处理。\r\n\r\n### 输入输出样例\r\n输入 3000 -2\r\n输出 30000=11011010101110000(base-2)\r\n输入 -20000 -2\r\n输出 -20000=1111011000100000(base-2)\r\n输入 28800 -16\r\n输出 28800=19180(base-16)\r\n输入 -25000 -16\r\n输出 -25000=7FB8(base-16)\r\n\r\n### 说明\r\n【数据范围】\r\n对于 100% 的数据,−20≤R≤−2,∣n∣≤37336。\r\n\r\nNOIp2000提高组第一题\r\n\r\n\r\n### 题解：\r\n正常情况下-7 % -2 商4 余1\r\n但是C语言（或者说所有语言）这里是商3 余-1\r\n这就很明显了，只需要把商+1，被除数+1就和正常计算情况一样了\r\n\r\n\r\n\r\n#### 代码为：\r\n\r\n```C/C++\r\n#include <stdio.h>\r\n\r\nvoid zh(int a, int b)\r\n{\r\n    if (a == 0) {\r\n        return;\r\n    }\r\n    int m = a % b;\r\n    if (m < 0) {\r\n        m -= b;\r\n        a += b;\r\n    }\r\n    if (m > 9) {\r\n        m = 'A' + m - 10;\r\n    }\r\n    else\r\n        m += '0';\r\n    zh(a / b, b);\r\n    printf(\"%c\", m);\r\n}\r\n\r\nint main()\r\n{\r\n    int a, b;\r\n    scanf(\"%d%d\", &a, &b);\r\n    printf(\"%d=\", a);\r\n    zh(a, b);\r\n    printf(\"(base%d)\", b);\r\n    return 0;\r\n}\r\n```",
+      "data": {
+        "title": "负进制",
+        "date": "2020-10-23 14:55:30",
+        "tags": [
+          "算法"
+        ],
+        "published": true,
+        "hideInList": false,
+        "feature": "https://cdn.jsdelivr.net/gh/Zhao-Master/cdn/img/(8).jpg.webp",
+        "isTop": false
+      },
+      "isEmpty": false,
+      "excerpt": "",
+      "abstract": "",
+      "fileName": "fu-jin-zhi"
+    },
+    {
+      "content": "#### 备忘录算法\r\n```C/C++\r\n#include <iostream>\r\n#include <vector>\r\n\r\nusing namespace std;\r\n\r\nint helper(vector<int> &m, int n);\r\nint fib(int n);\r\n\r\nint fib(int n)\r\n{\r\n    if(n < 1)\r\n    {\r\n        return 0;\r\n    }\r\n    vector<int> m(n + 1, 0);\r\n    return helper(m, n);\r\n}\r\n\r\nint helper(vector<int>&m, int n)\r\n{\r\n    if(n == 1 || n == 2) \r\n    {\r\n        return 1;\r\n    }\r\n    if (m[n] != 0)\r\n    {\r\n        return m[n];\r\n    }\r\n    m[n] = helper(m, n - 1) + helper(m, n - 2);\r\n    return m[n];\r\n} \r\n\r\nint main()\r\n{\r\n    int n;\r\n    cin >> n;\r\n    cout << fib(n);\r\n    return 0;\r\n}\r\n```\r\n#### dp数组迭代\r\n```C/C++\r\n#include <iostream>\r\n#include <vector>\r\n\r\nusing namespace std;\r\n\r\nint fib(int n);\r\n\r\nint fib(int n)\r\n{\r\n    if(n < 1)\r\n    {\r\n        return 0;\r\n    }\r\n    vector<int> dp(n + 1, 0);\r\n    dp[1] = dp[2] = 1;\r\n    for (int i = 3; i <= n; i++) \r\n    {\r\n        dp[i] = dp[i - 1] + dp[i - 2];\r\n    }\r\n    return dp[n];\r\n}\r\n\r\nint main()\r\n{\r\n    int n;\r\n    cin >> n;\r\n    cout << fib(n);\r\n    return 0;\r\n}\r\n```\r\n#### 空间优化\r\n```C/c++\r\n#include <iostream>\r\n\r\nusing namespace std;\r\n\r\nint fib(int n);\r\n\r\nint fib(int n)\r\n{\r\n    if (n == 1 || n == 2)\r\n    {\r\n        return 1;\r\n    }\r\n    int a, b, sum;\r\n    a = b = 1;\r\n    for (int i = 3; i <= n; i++) \r\n    {\r\n        sum = a + b;\r\n        a = b;\r\n        b = sum;\r\n    }\r\n    return sum;\r\n}\r\n\r\nint main()\r\n{\r\n    int n;\r\n    cin >> n;\r\n    cout << fib(n);\r\n    return 0;\r\n}\r\n```",
+      "data": {
+        "title": "带备忘录和dp的递归",
+        "date": "2020-10-23 14:49:02",
+        "tags": [
+          "算法"
+        ],
+        "published": true,
+        "hideInList": false,
+        "feature": "https://cdn.jsdelivr.net/gh/Zhao-Master/cdn/img/(4).jpg.webp",
+        "isTop": false
+      },
+      "isEmpty": false,
+      "excerpt": "",
+      "abstract": "",
+      "fileName": "dai-bei-wang-lu-he-dp-de-di-gui"
+    },
+    {
+      "content": "```C/C++\r\n#include <iostream>\r\n#include <vector>\r\n#include <limits.h>\r\n#define INT_MAX 2147483647;\r\nusing namespace std;\r\n\r\nint coinchange(int coin, vector<int> &coins, int amount, vector<int> &bwl) \r\n{\r\n    if (amount < 0) return -1;\r\n    if (amount == 0) return 0;\r\n    if (bwl[amount] != 0) return bwl[amount];\r\n    int res, i, j, dp = 0, m;\r\n    m = INT_MAX;\r\n    j = 0;\r\n    res = INT_MAX;\r\n    while (j < coin) {\r\n        i = coins[j];\r\n        dp = coinchange(coin, coins, amount - i, bwl);\r\n        if (dp == -1) {\r\n            j++;\r\n            continue;\r\n        }\r\n        if (res > 1 + dp) {\r\n            res = 1 + dp;\r\n        }\r\n        j++;\r\n    }\r\n    if (res != m) {\r\n        bwl[amount] = res;\r\n    }\r\n    else {\r\n        bwl[amount] = -1;\r\n    }\r\n    return bwl[amount];\r\n}\r\n\r\nint coinChange(vector<int>& coins, int amount) \r\n{\r\n    int coin = coins.size();\r\n    vector<int> bwl(amount + 1, 0);\r\n    return coinchange(coin, coins, amount, bwl);\r\n}\r\n\r\n\r\nint main() \r\n{\r\n    vector<int> coins;\r\n    int a, n, i = 0, amount, m;\r\n    cin >> n;\r\n    coins.clear();\r\n    while (i < n) {\r\n        cin >> a;\r\n        coins.push_back(a);\r\n        i++;\r\n    }\r\n    cin >> amount;\r\n    m = coinChange(coins, amount);\r\n    cout << m;\r\n    return 0;\r\n}\r\n\r\n```\r\n\r\n```C/C++\r\n#include <iostream>\r\n#include <limits.h>\r\n#include <vector>\r\n#define INT_MAX 2147483647;\r\nusing namespace std;\r\n\r\nint coinChange(vector<int> &coins, int amount)\r\n{\r\n    vector<int> dp(amount + 1, amount + 1);\r\n    dp[0] = 0;\r\n    int i, j;\r\n    for (i = 0; i < dp.size(); i++) \r\n    {\r\n        for (j = 0; j < coins.size(); j++)\r\n        {\r\n            if (i < coins[j])\r\n            {\r\n                continue;\r\n            }\r\n            if (dp[i] > dp[i - coins[j]]) \r\n            {\r\n                dp[i] = 1 + dp[i - coins[j]];\r\n            }\r\n        }\r\n    }\r\n    return (dp[amount] == amount + 1) ? -1 : dp[amount];\r\n}\r\n\r\nint main()\r\n{\r\n    vector<int> coins;\r\n    int a, n, i = 0, amount, m;\r\n    cin >> n;\r\n    coins.clear();\r\n    while (i < n)\r\n    {\r\n        cin >> a;\r\n        coins.push_back(a);\r\n        i++;\r\n    }\r\n    cin >> amount;\r\n    m = coinChange(coins, amount);\r\n    cout << m;\r\n    return 0;\r\n}\r\n```",
+      "data": {
+        "title": "凑零钱问题",
+        "date": "2020-10-23 14:45:52",
+        "tags": [
+          "算法"
+        ],
+        "published": true,
+        "hideInList": false,
+        "feature": "https://cdn.jsdelivr.net/gh/Zhao-Master/cdn/img/(7).jpg.webp",
+        "isTop": false
+      },
+      "isEmpty": false,
+      "excerpt": "",
+      "abstract": "",
+      "fileName": "cou-ling-qian-wen-ti"
+    },
+    {
+      "content": "## C语言实现链表基本操作（交换第i个和第j个节点） \r\n\r\n### 当i或者j为1时，需要让链表的表头指向j。\r\n![开始时](https://img-blog.csdnimg.cn/20200611081240188.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzQ2MDg5ODUw,size_8,color_FFFFFF,t_70)\r\n\r\n![在这里插入图片描述](https://img-blog.csdnimg.cn/20200611081335308.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzQ2MDg5ODUw,size_8,color_FFFFFF,t_70)\r\n![在这里插入图片描述](https://img-blog.csdnimg.cn/2020061108140129.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzQ2MDg5ODUw,size_8,color_FFFFFF,t_70)\r\n![在这里插入图片描述](https://img-blog.csdnimg.cn/20200611081415319.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzQ2MDg5ODUw,size_8,color_FFFFFF,t_70)\r\n![在这里插入图片描述](https://img-blog.csdnimg.cn/20200611081427878.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzQ2MDg5ODUw,size_8,color_FFFFFF,t_70)\r\n代码为\r\n```c\r\n/*i和j为1时情况比较特殊，需要让表头重新指向交换后的那个节点*/\r\n    if (i == 1) { \r\n        t1 = *L;\r\n        for (m = 1; temp->Next != NULL; m++, temp = temp->Next) {\r\n            if (m + 1 == j) {\r\n                *L = temp->Next;\r\n                t2 = temp->Next->Next;\r\n                temp->Next->Next = t1->Next;\r\n                t1->Next = t2;\r\n                temp->Next = t1;\r\n            }\r\n        }\r\n    }\r\n```\r\n### 当i和j都不为1时。\r\n节点相邻与不相邻也是不一样的。\r\n不相邻的情况下就是让i前面的节点指向j，然后让j前面的节点指向i。如果两个节点相邻（假设i < j）j前面的节点就是i，j前面的节点指向i就是指向了自己，所以要分开写。\r\n不相邻节点时：\r\n![在这里插入图片描述](https://img-blog.csdnimg.cn/20200611083309796.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzQ2MDg5ODUw,size_16,color_FFFFFF,t_70)\r\n![在这里插入图片描述](https://img-blog.csdnimg.cn/20200611083331554.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzQ2MDg5ODUw,size_16,color_FFFFFF,t_70)\r\n![在这里插入图片描述](https://img-blog.csdnimg.cn/20200611083418720.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzQ2MDg5ODUw,size_16,color_FFFFFF,t_70)\r\n![在这里插入图片描述](https://img-blog.csdnimg.cn/20200611083435638.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzQ2MDg5ODUw,size_16,color_FFFFFF,t_70)\r\n代码为：\r\n```c\r\nif ((i - j) != 1 && (j- i) != 1) {//非相邻结点之间交换\r\n            for (m = 1; temp->Next != NULL; m++, temp = temp->Next) {\r\n                if (m + 1 == i) {\r\n                    t1 = temp;\r\n                }\r\n                if (m + 1 == j) {\r\n                    t2 = temp;\r\n                }\r\n            }\r\n            t5 = t1->Next->Next;\r\n            t3 = t1->Next;\r\n            t4 = t2->Next;\r\n            t1->Next = t4;\r\n            t2->Next = t3;\r\n            t3->Next = t4->Next;\r\n            t4->Next = t5;\r\n        }\r\n```\r\n### 最后一种情况，两个节点相邻：\r\n![在这里插入图片描述](https://img-blog.csdnimg.cn/20200611084227643.png)\r\n![在这里插入图片描述](https://img-blog.csdnimg.cn/20200611084240634.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzQ2MDg5ODUw,size_16,color_FFFFFF,t_70)\r\n![在这里插入图片描述](https://img-blog.csdnimg.cn/20200611084255116.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzQ2MDg5ODUw,size_16,color_FFFFFF,t_70)\r\n![在这里插入图片描述](https://img-blog.csdnimg.cn/20200611084305639.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzQ2MDg5ODUw,size_16,color_FFFFFF,t_70)\r\n代码为：\r\n```c\r\nfor (m = 1; temp != NULL; m++, temp = temp->Next) {\r\n                if (m + 1 == i) {\r\n                    t1 = temp;\r\n                }\r\n                if (m == j) {\r\n                    t2 = temp;\r\n                }\r\n            }\r\n            temp = t2->Next;\r\n            t3 = t1->Next;\r\n            t1->Next = t2;\r\n            t3->Next = temp;\r\n            t2->Next = t3;\r\n        }\r\n```\r\n全部代码：\r\n```c\r\n#include <stdio.h>\r\n#include <malloc.h>\r\n\r\ntypedef struct node\r\n{\r\n    int Score;\r\n    struct node * Next;\r\n}Node, * List;\r\n\r\nvoid Insert(List *L, Node e)\r\n{\r\n    List temp = *L;\r\n    List n = (List)malloc(sizeof(Node));\r\n    n->Score = e.Score;\r\n    if (temp == NULL) {\r\n        *L = n;\r\n    }\r\n    else {\r\n        while (temp->Next != NULL) {\r\n            temp = temp->Next;\r\n        }\r\n        temp->Next = n;\r\n    }\r\n    n->Next = NULL;\r\n}\r\n\r\nvoid Swap(List * L, int i, int j)\r\n{\r\n    List temp = *L;\r\n    List t1;\r\n    List t2;\r\n    List t3;\r\n    List t4;\r\n    List t5;\r\n    int m;\r\n    /*i和j为1时情况比较特殊，需要让表头重新指向交换后的那个节点*/\r\n    if (i == 1) { \r\n        t1 = *L;\r\n        for (m = 1; temp->Next != NULL; m++, temp = temp->Next) {\r\n            if (m + 1 == j) {\r\n                *L = temp->Next;\r\n                t2 = temp->Next->Next;\r\n                temp->Next->Next = t1->Next;\r\n                t1->Next = t2;\r\n                temp->Next = t1;\r\n            }\r\n        }\r\n    }\r\n    if (j == 1) {\r\n        t1 = *L;\r\n        for (m = 1; temp->Next != NULL; m++, temp = temp->Next) {\r\n            if (m + 1 == i) {\r\n                *L = temp->Next;\r\n                t2 = temp->Next->Next;\r\n                temp->Next->Next = t1->Next;\r\n                t1->Next = t2;\r\n                temp->Next = t1;\r\n            }\r\n        }\r\n    }\r\n    /*相邻节点之间交换和非相邻结点之间交换不一样*/\r\n    else {\r\n        if ((i - j) != 1 && (j- i) != 1) {//非相邻结点之间交换\r\n            for (m = 1; temp->Next != NULL; m++, temp = temp->Next) {\r\n                if (m + 1 == i) {\r\n                    t1 = temp;\r\n                }\r\n                if (m + 1 == j) {\r\n                    t2 = temp;\r\n                }\r\n            }\r\n            t5 = t1->Next->Next;\r\n            t3 = t1->Next;\r\n            t4 = t2->Next;\r\n            t1->Next = t4;\r\n            t2->Next = t3;\r\n            t3->Next = t4->Next;\r\n            t4->Next = t5;\r\n        }\r\n        else if (i < j) {//相邻节点之间交换\r\n            for (m = 1; temp != NULL; m++, temp = temp->Next) {\r\n                if (m + 1 == i) {\r\n                    t1 = temp;\r\n                }\r\n                if (m == j) {\r\n                    t2 = temp;\r\n                }\r\n            }\r\n            temp = t2->Next;\r\n            t3 = t1->Next;\r\n            t1->Next = t2;\r\n            t3->Next = temp;\r\n            t2->Next = t3;\r\n        }\r\n        else if (i > j) {\r\n            for (m = 1; temp != NULL; m++, temp = temp->Next) {\r\n                if (m + 1 == j) {\r\n                    t1 = temp;\r\n                }\r\n                if (m == i) {\r\n                    t2 = temp;\r\n                }\r\n            }\r\n            temp = t2->Next;\r\n            t3 = t1->Next;\r\n            t1->Next = t2;\r\n            t3->Next = temp;\r\n            t2->Next = t3;\r\n        }\r\n    }\r\n}\r\n\r\nvoid printflist(List list) \r\n{\r\n    List temp;\r\n    for (temp = list; temp != NULL; temp = temp->Next) {\r\n        printf(\"%d\\n\", temp->Score);\r\n    }\r\n}\r\n\r\nvoid freelist(List *list)\r\n{\r\n    List temp = *list, del;\r\n    while (temp != NULL) {\r\n        del = temp;\r\n        temp = temp->Next;\r\n        free(del);\r\n    }\r\n}\r\n\r\nint main()\r\n{\r\n    List list = NULL;\r\n    Node n1, n2, n3, n4, e;//定义5个节点\r\n    e.Score = 5;\r\n    n1.Score = 1;\r\n    n2.Score = 2;\r\n    n3.Score = 3;\r\n    n4.Score = 4;\r\n    Insert(&list, n1);\r\n    Insert(&list, n2);\r\n    Insert(&list, n3);\r\n    Insert(&list, n4);\r\n    Insert(&list, e);\r\n    // dellist(&list, 8);\r\n    Swap(&list, 5, 4);\r\n    printflist(list);\r\n    freelist(&list);\r\n    return 0;\r\n}\r\n\r\n\r\n```",
+      "data": {
+        "title": "C语言实现链表基本操作（交换第i个和第j个节点）",
+        "date": "2020-10-23 14:39:58",
+        "tags": [],
+        "published": true,
+        "hideInList": false,
+        "feature": "https://cdn.jsdelivr.net/gh/Zhao-Master/cdn/img/(3).jpg.webp",
+        "isTop": false
+      },
+      "isEmpty": false,
+      "excerpt": "",
+      "abstract": "",
+      "fileName": "c-yu-yan-shi-xian-lian-biao-ji-ben-cao-zuo-jiao-huan-di-i-ge-he-di-j-ge-jie-dian"
+    },
+    {
+      "content": "```C/C++\r\n#include <stdio.h>\r\n#include <malloc.h>\r\n\r\ntypedef struct Node\r\n{\r\n    char data;\r\n\tstruct Node *next;\r\n}SN;\r\n\r\nSN * create(int n)\r\n{\r\n\tint i;\r\n\tSN *h,*p;\r\n    h = NULL;\r\n    for(i = 0; i<n; i++)\r\n\t{\r\n\t\tp=(SN*)malloc(sizeof(SN));\r\n\t\tprintf(\"请输入第%d个字符：\",i+1);\r\n\t\tp->data = getchar();\r\n\t\tfflush(stdin);\r\n\t\tp->next = h;\r\n\t\th=p;\r\n\t}\r\n\treturn h;\r\n}\r\n\r\nSN * def(SN * h)\r\n{ \r\n    SN * n1, *n2;\r\n\tn1 = h;\r\n\tn2 = NULL;\r\n\twhile(n1 != NULL)\r\n\t{\r\n\t\tSN *temp;\r\n\t\ttemp = n1;\r\n\t\tn1 = n1->next;\r\n\t\ttemp->next = n2;\r\n\t\tn2 = temp;\r\n\t}\r\n\th = n2;\r\n\treturn h;\r\n}\r\nvoid visit(SN * h)\r\n{ \r\n\twhile(h != NULL)\r\n\t{\r\n\t\tprintf(\"%c\", h->data);\r\n\t\th = h->next;\r\n\t}\r\n\tprintf(\"\\n\");\r\n}\r\n\r\nvoid freelist(SN *h)\r\n{\r\n    SN *temp = h;\r\n\tSN *del;\r\n\twhile (temp != NULL) {\r\n        del = temp;\r\n        temp = temp->next;\r\n        free(del);\r\n    }\r\n}\r\n\r\nint main() \r\n{\r\n\tint n;\r\n\tSN *h;\r\n\tprintf(\"请输入字符个数：\\n\");\r\n\tscanf(\"%d\", &n);\r\n\tfflush(stdin);\r\n\th = create(n);\r\n\tprintf(\"链表创建成功，对其遍历\\n\");\r\n    visit(h);\r\n\tprintf(\"链表逆置成功，对其遍历\\n\");\r\n\th = def(h);\r\n\tvisit(h);\r\n\tfreelist(h);\r\n\treturn 0;\r\n}\r\n```",
+      "data": {
+        "title": "C语言链表基本操作（头插法及其逆置）",
+        "date": "2020-10-23 14:32:17",
+        "tags": [],
+        "published": true,
+        "hideInList": false,
+        "feature": "https://cdn.jsdelivr.net/gh/Zhao-Master/cdn/img/(5).jpg.webp",
+        "isTop": false
+      },
+      "isEmpty": false,
+      "excerpt": "",
+      "abstract": "",
+      "fileName": "c-yu-yan-lian-biao-ji-ben-cao-zuo-tou-cha-fa-ji-qi-ni-zhi"
+    },
+    {
+      "content": "```python\r\nimport math\r\nimport numpy#导入两个库\r\n\r\ndef knn(c):#定义knn函数\r\n    k_a = 0\r\n    k_b = 0\r\n    distance_a = []#定义a和c的距离列表\r\n    distance_b = []#定义b和c的距离列表\r\n    distance = []#所有数据距离列表\r\n    for i in range(0, len(a)):#a的每个数据和c的每个数据的距离\r\n        distance_a.append(math.sqrt(numpy.square(a[i][0] - c[0]) + numpy.square(a[i][1] - c[1])))\r\n    for i in range(0, len(b)):#b的每个数据和c的每个数据的距离\r\n        distance_b.append(math.sqrt(numpy.square(b[i][0] - c[0]) + numpy.square(b[i][1] - c[1])))\r\n    distance = distance_a + distance_b\r\n    distance.sort()#排序距离\r\n    k = int(len(distance) / 2) + 1#取k的值\r\n    for i in range(k):\r\n        if distance_a.count(distance[i]) != 0:#判断该距离是否是a和c的距离\r\n            k_a = k_a + 1\r\n        if distance_b.count(distance[i]) != 0:#判断该距离是否是b和c的距离\r\n            k_b = k_b + 1\r\n    if k_a > k_b:#判断c的数据和哪个类别接近\r\n        print(\"你属于肥胖身材\")\r\n    else:\r\n        print(\"你属于标准身材\")\r\n\r\n\r\na = [[150, 60], [152, 65], [154, 68], [156, 70], [158, 72]]#类别a\r\nb = [[150, 49.5], [152, 50.8], [154, 52.2], [156, 53.5], [158, 54.9]]#类别b\r\nc = []  #判断类别c\r\nprint(\"输入身高体重\")\r\nfor i in range(2):#输入c\r\n    num = int(input())\r\n    c.append(num)\r\nknn(c)#调用函数knn\r\n\r\n```",
+      "data": {
+        "title": "机器学习-knn",
+        "date": "2020-10-04 14:58:31",
+        "tags": [
+          "机器学习"
+        ],
+        "published": true,
+        "hideInList": false,
+        "feature": "https://cdn.jsdelivr.net/gh/Zhao-Master/cdn/img/(9).jpg.webp",
+        "isTop": true
+      },
+      "isEmpty": false,
+      "excerpt": "",
+      "abstract": "",
+      "fileName": "ji-qi-xue-xi-knn"
+    },
+    {
+      "content": "👏  欢迎使用 **Gridea** ！  \n✍️  **Gridea** 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ... \n\n<!-- more -->\n\n[Github](https://github.com/getgridea/gridea)  \n[Gridea 主页](https://gridea.dev/)  \n[示例网站](http://fehey.com/)\n\n## 特性👇\n📝  你可以使用最酷的 **Markdown** 语法，进行快速创作  \n\n🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片  \n\n🏷️  你可以对文章进行标签分组  \n\n📋  你可以自定义菜单，甚至可以创建外部链接菜单  \n\n💻  你可以在 **Windows**，**MacOS** 或 **Linux** 设备上使用此客户端  \n\n🌎  你可以使用 **𝖦𝗂𝗍𝗁𝗎𝖻 𝖯𝖺𝗀𝖾𝗌** 或 **Coding Pages** 向世界展示，未来将支持更多平台  \n\n💬  你可以进行简单的配置，接入 [Gitalk](https://github.com/gitalk/gitalk) 或 [DisqusJS](https://github.com/SukkaW/DisqusJS) 评论系统  \n\n🇬🇧  你可以使用**中文简体**或**英语**  \n\n🌁  你可以任意使用应用内默认主题或任意第三方主题，强大的主题自定义能力  \n\n🖥  你可以自定义源文件夹，利用 OneDrive、百度网盘、iCloud、Dropbox 等进行多设备同步  \n\n🌱 当然 **Gridea** 还很年轻，有很多不足，但请相信，它会不停向前 🏃\n\n未来，它一定会成为你离不开的伙伴\n\n尽情发挥你的才华吧！\n\n😘 Enjoy~\n",
+      "data": {
+        "title": "Hello Gridea",
+        "date": "2018-12-12 00:00:00",
+        "tags": [
+          "Gridea"
+        ],
+        "published": true,
+        "hideInList": false,
+        "feature": "/post-images/hello-gridea.png",
+        "isTop": false
+      },
+      "isEmpty": false,
+      "excerpt": "",
+      "abstract": "👏  欢迎使用 **Gridea** ！  \n✍️  **Gridea** 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ... ",
+      "fileName": "hello-gridea"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Python",
+      "slug": "PzPwXvrBB",
+      "used": true
+    },
+    {
+      "name": "机器学习",
+      "slug": "a6phiPWyI",
+      "used": true
+    },
+    {
+      "name": "排序",
+      "slug": "k8BNlgjE1",
+      "used": true
+    },
+    {
+      "name": "算法",
+      "slug": "e0ZtA0F1A",
+      "used": true
+    },
+    {
+      "name": "Gridea",
+      "slug": "-VkNDzNrn",
+      "used": true
+    },
+    {
+      "name": "关于",
+      "slug": "5UBo7QGYK",
+      "used": false
+    }
+  ],
+  "menus": [
+    {
+      "link": "/",
+      "name": "首页",
+      "openType": "Internal"
+    },
+    {
+      "link": "/archives",
+      "name": "归档",
+      "openType": "Internal"
+    },
+    {
+      "link": "/tags",
+      "name": "标签",
+      "openType": "Internal"
+    },
+    {
+      "link": "post/about",
+      "name": "关于",
+      "openType": "Internal"
+    }
+  ]
+}

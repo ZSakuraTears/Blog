@@ -1,0 +1,185 @@
+@keyframes fade-in {  
+    0% {opacity: 0;}/*初始状态 透明度为0*/  
+    40% {opacity: 0;}/*过渡状态 透明度为0*/  
+    100% {opacity: 1;}/*结束状态 透明度为1*/  
+}  
+@-webkit-keyframes fade-in {/*针对webkit内核*/  
+    0% {opacity: 0;}  
+    40% {opacity: 0;}  
+    100% {opacity: 1;}  
+} 
+
+#post-container {
+    animation: fade-in;/*动画名称*/  
+    animation-duration: 1s;/*动画持续时间*/  
+    -webkit-animation:fade-in 1s;/*针对webkit内核*/  
+}
+
+#post{
+    position: relative;
+}
+.postshow {
+    padding: 0px 0 80px 0;
+    position: relative;
+    z-index: 1;
+}
+
+.postlist{
+    padding: 0px 10px 80px 10px;
+}
+
+.posttitlebox {
+    position: absolute;
+    z-index: 2;
+    bottom: 17px;
+    width: 100%;
+
+}
+
+.posttitle {
+    font-size: 2em;
+    color: #f7f7f7;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: lighter;
+    position: relative;
+    padding-left: 2%;
+    float: left;
+    cursor: pointer;
+}
+
+.posttitlewithoutimg{
+    font-size: 2em;
+    color: #f7f7f7;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: lighter;
+    position: relative;
+    padding-left: 2%;
+    float: left;
+    cursor: pointer;
+}
+
+.postimage {
+    position: relative;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 10px 10px 10px rgba(0,0,0,.5);
+    /*考虑浏览器兼容性*/
+    -moz-box-shadow: 10px 10px 10px rgba(0,0,0,.5);
+    -webkit-box-shadow: 10px 10px 10px rgba(0,0,0,.5);
+}
+
+
+.postdate {
+    margin-top: 10px;
+    padding: 5px 10px 5px 10px;
+    background: #ff4e6a;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+    display: inline;
+    float: left;
+}
+
+.poststatus {
+    margin-left: 10px;
+    background: #ffaa73;
+}
+
+.posttag {
+    margin-top: 10px;
+    padding: 5px 10px 5px 10px;
+    font-weight: bold;
+    border-radius: 10px;
+    left: 0;
+    display: inline;
+    float: left;
+}
+
+.postlink {
+    margin-left: 5px;
+    border: solid;
+    border-radius: 10px;
+    padding: 5px 10px 5px 10px;
+    color: #3cdc82;
+}
+
+.postlink:hover{
+    text-decoration: none;
+    color: #3cdc82;
+}
+
+.postinfo {
+    margin-left: 0;
+}
+
+.postdate i {
+    padding-right: 10px;
+}
+
+a:hover {
+    text-decoration: none
+}
+
+@media screen and (max-width:1200px) {
+    #post{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .posttitlewithoutimg,.posttitle{
+        font-size: 3em;
+        padding:0;
+        font-weight: bold;
+    }
+    .posttitlebox {
+        display: flex;
+        align-content: center;
+        align-items: center;
+        justify-content: center;
+        z-index: 2;
+        bottom: inherit;
+        width: 100%;
+    }    
+
+    .posttag{
+        display: none;
+    }
+
+    #post-container {
+        background: white;
+        margin-top:50px;
+    }
+
+    .postimage {
+        position: relative;
+        cursor: pointer;
+        border-radius: 5px;
+        width:100%;
+    }
+}
+
+@media screen and (max-width:1024px)
+{
+    .posttitlewithoutimg,.posttitle{
+        font-size: 2.5em;
+        padding:0;
+        font-weight: bold;
+    }
+}
+
+@media screen and (max-width:760px)
+{
+    .posttitlewithoutimg,.posttitle{
+        font-size: 1.2em;
+        padding:0;
+        font-weight: bold;
+    }
+} 
