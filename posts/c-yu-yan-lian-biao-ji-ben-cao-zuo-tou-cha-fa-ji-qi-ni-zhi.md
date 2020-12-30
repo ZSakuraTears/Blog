@@ -1,7 +1,7 @@
 ---
 title: 'C语言链表基本操作（头插法及其逆置）'
 date: 2020-10-23 14:32:17
-tags: []
+tags: [C/C++,数据结构]
 published: true
 hideInList: false
 feature: https://cdn.jsdelivr.net/gh/Zhao-Master/cdn/img/(5).jpg.webp

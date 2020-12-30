@@ -1,7 +1,7 @@
 ---
 title: 'C语言实现链表基本操作（交换第i个和第j个节点）'
 date: 2020-10-23 14:39:58
-tags: []
+tags: [C/C++,数据结构]
 published: true
 hideInList: false
 feature: https://cdn.jsdelivr.net/gh/Zhao-Master/cdn/img/(3).jpg.webp

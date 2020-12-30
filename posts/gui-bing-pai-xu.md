@@ -4,11 +4,11 @@ date: 2020-10-23 14:57:28
 tags: [算法,排序]
 published: true
 hideInList: false
-feature: https://cdn.jsdelivr.net/gh/Zhao-Master/cdn/img/(6).jpg.webp
+feature: https://cdn.jsdelivr.net/gh/ZSakuraTears/cdn/img/54lqq0%20(1).jpg
 isTop: false
 ---
 归并排序将两个有序的排列归并为一个有序的排列。
-
+<!-- more -->
 归并算法都基于归并这个简单的操作，即将两个有序的数组归并成一个更大的有序数组。很快人们就根据这个操作发明了一种简单的递归排序算法：归并排序。要将一个数组排序，可以先（递归地）将它分成两半分别排序，然后将结果归并起来：你将会看到，归并排序最
 吸引人的性质是它能够保证将任意长度为，的数组排序所需时间和，成正比；它的主要缺点则是它所需的额外空间。简单的归并排序如图所示。
 

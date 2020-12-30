@@ -1,13 +1,13 @@
 {
   "name": "fog",
-  "version": "0.7",
+  "version": "0.9",
   "author": "Ericam_",
   "repository": "https://github.com/850552586/gridea-theme-fog",
   "customConfig": [ {
     "name": "live2d",
     "label": "是否开启看板娘",
     "group": "布局",
-    "value": false,
+    "value": true,
     "type": "switch",
     "note": ""
   },
@@ -89,7 +89,7 @@
       "name": "sitegotimeChoice",
       "label": "是否开启站点创建时间",
       "group": "统计",
-      "value": true,
+      "value": false,
       "type": "switch",
       "note": ""
     },
@@ -97,7 +97,7 @@
       "name": "sitegotime",
       "label": "站点创建时间",
       "group": "统计",
-      "value": "09/09/2020",
+      "value": "02/02/2020",
       "type": "input",
       "note": "输入日期（格式:02/02/2020）"
     },
@@ -105,7 +105,7 @@
       "name": "sitenumChoice",
       "label": "是否开启访客统计",
       "group": "统计",
-      "value": true,
+      "value": false,
       "type": "switch",
       "note": "不蒜子会影响网页加载速度，请慎重考虑！"
     },
@@ -113,7 +113,7 @@
       "name": "recordText",
       "label": "备案信息",
       "group": "统计",
-      "value": "Copyright © 2020",
+      "value": "Copyright © 2020  备案号: 鄂ICP备...号",
       "type": "input",
       "note": "填写网站备案号，如无则空着即可"
     },
@@ -137,7 +137,7 @@
       "name": "donateChoice",
       "label": "是否开启文章赞赏功能",
       "group": "文章",
-      "value": false,
+      "value": true,
       "type": "switch",
       "note": "请在下方放置赞赏图片外链"
     },
@@ -333,14 +333,6 @@
       ]
     },
     {
-      "name": "codeCopyText",
-      "label": "复制代码-提示文字",
-      "group": "代码",
-      "value": "代码复制成功了哦",
-      "type": "input",
-      "note": "点击代码框内复制代码按钮时弹出的提示文字"
-    },
-    {
       "name": "Mathchoice",
       "label": "是否开启数学公式",
       "group": "代码",
@@ -463,6 +455,22 @@
       "value": false,
       "type": "switch",
       "note": ""
+    },
+    {
+      "name": "daovoicechoice",
+      "label": "是否开启Daovoice",
+      "group": "DaoVoice",
+      "value": false,
+      "type": "switch",
+      "note": "daovoice是一款可以实现即时聊天的工具。"
+    },
+    {
+      "name": "daovoice_id",
+      "label": "app_id",
+      "group": "DaoVoice",
+      "value": "",
+      "type": "input",
+      "note": "在控制台-安装到网站-appid里的内容复制过来"
     }
   ]
 }

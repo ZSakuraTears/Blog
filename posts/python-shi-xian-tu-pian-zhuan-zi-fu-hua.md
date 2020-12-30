@@ -8,6 +8,8 @@ feature: https://cdn.jsdelivr.net/gh/Zhao-Master/cdn/img/(1).jpg.webp
 isTop: false
 ---
 首先，安装 Python 图像处理库 pillow（PIL）
+argparse是 Python 标准库中推荐的命令行解析模块。
+具体方法可以查看官方文档是 https://docs.python.org/zh-cn/3/howto/argparse.html
 ```Python
 # -*- coding=utf-8 -*-
 

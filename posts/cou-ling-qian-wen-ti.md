@@ -1,7 +1,7 @@
 ---
 title: '凑零钱问题'
 date: 2020-10-23 14:45:52
-tags: [算法]
+tags: [算法,DP]
 published: true
 hideInList: false
 feature: https://cdn.jsdelivr.net/gh/Zhao-Master/cdn/img/(7).jpg.webp

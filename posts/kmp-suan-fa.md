@@ -5,13 +5,13 @@ tags: [算法]
 published: true
 hideInList: false
 feature: https://cdn.jsdelivr.net/gh/Zhao-Master/cdn/img/(7).jpg.webp
-isTop: true
+isTop: false
 ---
+KMP算法是一种**字符串匹配**算法，可以在 O(n+m) 的时间复杂度内实现两个字符串的匹配。本文将引导您学习KMP算法。
+<!-- more -->
 本文转载自知乎“洛谷网校 阮行止”
 
 网址：https://www.zhihu.com/question/21923021/answer/1032665486?utm_source=qq&utm_medium=social&utm_oi=952480495343259648
-
-KMP算法是一种**字符串匹配**算法，可以在 O(n+m) 的时间复杂度内实现两个字符串的匹配。本文将引导您学习KMP算法。
 
 #### 字符串匹配问题
  所谓字符串匹配，是这样一种问题：“字符串 P 是否为字符串 S 的子串？如果是，它出现在 S 的哪些位置？” 其中 S 称为**主串**；P 称为**模式串**。下面的图片展示了一个例子。

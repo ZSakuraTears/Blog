@@ -8,6 +8,7 @@ feature: https://cdn.jsdelivr.net/gh/Zhao-Master/cdn/img/(3).jpg.webp
 isTop: false
 ---
 快速排序的特点是他是原地排序（只需要一个很小的辅助栈），且长度为N的数组时间复杂度为NlgN。
+<!-- more -->
 快速排序是一种分治的算法，他将一个数组分成两个数组，将两部分独立排序，在快排中切分的位置取决于数组的内容。
 取首元素为切分元素，比切分元素小的放到左边，比切分元素大的放到右边，再把两个数组切分，最后有序
 ![图](https://cdn.jsdelivr.net/gh/ZSakuraTears/cdn/img/QQ%E5%9B%BE%E7%89%8720201015164728.jpg)

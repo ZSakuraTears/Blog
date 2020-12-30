@@ -3,12 +3,12 @@
     "branch": "master",
     "cname": "sakuratears.cn",
     "domain": "https://sakuratears.cn",
-    "email": "2538598846@qq.com",
+    "email": "zyz2538598846@gmail.com",
     "platform": "github",
-    "repository": "zsakuratears.github.io",
-    "token": "ea83fc931f95ddf570b16d741de8054413c0b913",
+    "repository": "fateprototype.github.io",
+    "token": "a20d18ecf24ed82e8ba9f7db1a02387d983e9501",
     "tokenUsername": "wVDrHVdZcb",
-    "username": "zsakuratears"
+    "username": "fateprototype"
   },
   "comment": {
     "commentPlatform": "gitalk",
@@ -23,6 +23,6 @@
       "owner": "",
       "repository": ""
     },
-    "showComment": true
+    "showComment": false
   }
 }

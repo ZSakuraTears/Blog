@@ -3,9 +3,9 @@ title: '机器学习-knn'
 date: 2020-10-04 14:58:31
 tags: [机器学习]
 published: true
-hideInList: false
+hideInList: true
 feature: https://cdn.jsdelivr.net/gh/Zhao-Master/cdn/img/(9).jpg.webp
-isTop: true
+isTop: false
 ---
 ```python
 import math

@@ -1,7 +1,7 @@
 ---
 title: '带备忘录和dp的递归'
 date: 2020-10-23 14:49:02
-tags: [算法]
+tags: [算法,DP]
 published: true
 hideInList: false
 feature: https://cdn.jsdelivr.net/gh/Zhao-Master/cdn/img/(4).jpg.webp

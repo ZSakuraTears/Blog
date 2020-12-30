@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <%- include('./includes/head', { siteTitle: `${post.title} - ${themeConfig.siteName}` }) %>
+</head>
+
+<body>
+  <div class="layout theme-dark">
+    <%- include('./includes/header') %>
+    <%- include('./includes/menu') %>
+
+    <div class="layout-content">
+      <div class="layout-content-main">
+        <div class="container">
+          <div class="row justify-content-lg-center">
+            <div class="col-12 col-lg-9">
+              <div class="layout-post">
+                <div class="layout-post-body">
+                  <div class="row">
+
+                    <div class="col-12 col-lg-10">
+                      <div class="layout-post-main m-right m-md-right">
+                        <div class="layout-post-header">
+                          <h1 class="layout-post-title"><%= post.title %></h1>
+                          <div class="layout-post-meta">
+                            <div class="item">
+                              <% post.tags.forEach(function(tag) { %> <a href="<%= tag.link %>" class="post--keyword"
+                                data-title="<%= tag.name %>" data-type="post_tag" data-term-id="39"><%= tag.name %></a>
+                              <% }); %>
+                            </div>
+                            <div class="item">
+                              <span><%= post.dateFormat %></span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layout-post-content">
+                          <div class="layout-post-item">
+                            <% if (themeConfig.showFeatureImage && post.feature) { %>
+                            <p class="with-img"><img src="<%= post.feature %>"
+                                class="attachment-full size-full wp-post-image" alt="<%= post.title %>" /></p>
+                            <% } %>
+                            <%- post.content %>
+                          </div>
+                        </div>
+                        <div class="layout-post-social">
+                          <div class="item reader">
+                            <div id="/post/<%= post.fileName %>/" class="leancloud-visitors view"
+                              data-flag-title="<%= post.title %>">
+                              <span class="post-meta-item-text">阅读 </span>
+                              <span class="leancloud-visitors-count"></span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="layout-post-navigation">
+                          <div class="navigation-list">
+                            <% if (post.prevPost && post.nextPost) { %>
+                            <div class="post-card row">
+                              <% if (post.prevPost.feature) { %>
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="<%= post.prevPost.link %>" class="title">
+                                      <h4><%= post.prevPost.title %></h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      <%- post.prevPost.abstract %>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>上一篇</span></div>
+                                  <div class="item"><%= post.prevPost.dateFormat %></div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="<%= post.prevPost.link %>"
+                                    style="background-image: url('<%= post.prevPost.feature %>');"></a>
+                                </div>
+                              </div>
+                              <% } else { %>
+                              <div class="card-content col-12">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="<%= post.prevPost.link %>" class="title">
+                                      <h4><%= post.prevPost.title %></h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner">
+                                    <div class="abstract">
+                                      <%- post.prevPost.abstract %>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>上一篇</span></div>
+                                  <div class="item"><%= post.prevPost.dateFormat %></div>
+                                </div>
+                              </div>
+                              <% } %>
+                            </div>
+
+                            <div class="post-card row">
+                              <% if (post.nextPost.feature) { %>
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="<%= post.nextPost.link %>" class="title">
+                                      <h4><%= post.nextPost.title %></h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      <%- post.nextPost.abstract %>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>下一篇</span></div>
+                                  <div class="item"><%= post.nextPost.dateFormat %></div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="<%= post.nextPost.link %>"
+                                    style="background-image: url('<%= post.nextPost.feature %>');"></a>
+                                </div>
+                              </div>
+                              <% } else { %>
+                              <div class="card-content col-12">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="<%= post.nextPost.link %>" class="title">
+                                      <h4><%= post.nextPost.title %></h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner">
+                                    <div class="abstract">
+                                      <%- post.nextPost.abstract %>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>下一篇</span></div>
+                                  <div class="item"><%= post.nextPost.dateFormat %></div>
+                                </div>
+                              </div>
+                              <% } %>
+                            </div>
+
+                            <% } else if (post.prevPost) { %>
+                            <div class="post-card row">
+                              <% if (post.prevPost.feature) { %>
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="<%= post.prevPost.link %>" class="title">
+                                      <h4><%= post.prevPost.title %></h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      <%- post.prevPost.abstract %>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>上一篇</span></div>
+                                  <div class="item"><%= post.prevPost.dateFormat %></div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="<%= post.prevPost.link %>"
+                                    style="background-image: url('<%= post.prevPost.feature %>');"></a>
+                                </div>
+                              </div>
+                              <% } else { %>
+                              <div class="card-content col-12">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="<%= post.prevPost.link %>" class="title">
+                                      <h4><%= post.prevPost.title %></h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner">
+                                    <div class="abstract">
+                                      <%- post.prevPost.abstract %>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>上一篇</span></div>
+                                  <div class="item"><%= post.prevPost.dateFormat %></div>
+                                </div>
+                              </div>
+                              <% } %>
+                            </div>
+                            <% } else if (post.nextPost) { %>
+                            <div class="post-card row">
+                              <% if (post.nextPost.feature) { %>
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="<%= post.nextPost.link %>" class="title">
+                                      <h4><%= post.nextPost.title %></h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      <%- post.nextPost.abstract %>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>下一篇</span></div>
+                                  <div class="item"><%= post.nextPost.dateFormat %></div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="<%= post.nextPost.link %>"
+                                    style="background-image: url('<%= post.nextPost.feature %>');"></a>
+                                </div>
+                              </div>
+                              <% } else { %>
+                              <div class="card-content col-12">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="<%= post.nextPost.link %>" class="title">
+                                      <h4><%= post.nextPost.title %></h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner">
+                                    <div class="abstract">
+                                      <%- post.nextPost.abstract %>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>下一篇</span></div>
+                                  <div class="item"><%= post.nextPost.dateFormat %></div>
+                                </div>
+                              </div>
+                              <% } %>
+                            </div>
+                            <% } %>
+                          </div>
+                        </div>
+
+                        <div class="layout-comments"></div>
+                        <% if (site.customConfig.valineID && site.customConfig.valineKey) { %>
+                        <%- include('./includes/valine') %>
+                        <% } %>
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-lg-2 d-none d-lg-block">
+                      <div class="layout-post-sidebar">
+                        <div class="layout-sidebar-item">
+                          <%- post.toc %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="layout-totop d-none"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
+
+    <%- include('./includes/footer') %>
+
+  </div>
+</body>
+<!-- 更进一步的拿来主义，这段代码及一定的 CSS 样式拷贝自 Gridea 的 Next 主题：https://github.com/hsxyhao/gridea-theme-next，😺 -->
+<script>
+  // 拿来主义(真香)^_^，Clipboard 实现摘自掘金 https://juejin.im/post/5aefeb6e6fb9a07aa43c20af
+  window.Clipboard = (function (window, document, navigator) {
+    var textArea,
+      copy;
+
+    // 判断是不是ios端
+    function isOS() {
+      return navigator.userAgent.match(/ipad|iphone/i);
+    }
+    // 创建文本元素
+    function createTextArea(text) {
+      textArea = document.createElement('textArea');
+      textArea.value = text;
+      textArea.style.width = 0;
+      textArea.style.height = 0;
+      textArea.clientHeight = 0;
+      textArea.clientWidth = 0;
+      document.body.appendChild(textArea);
+    }
+    // 选择内容
+    function selectText() {
+      var range,
+        selection;
+
+      if (isOS()) {
+        range = document.createRange();
+        range.selectNodeContents(textArea);
+        selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        textArea.setSelectionRange(0, 999999);
+      } else {
+        textArea.select();
+      }
+    }
+
+    // 复制到剪贴板
+    function copyToClipboard() {
+      try {
+        document.execCommand("Copy")
+      } catch (err) {
+        alert("复制错误！请手动复制！")
+      }
+      document.body.removeChild(textArea);
+    }
+
+    copy = function (text) {
+      createTextArea(text);
+      selectText();
+      copyToClipboard();
+    };
+
+    return {
+      copy: copy
+    };
+  })(window, document, navigator);
+
+  function copyCode(e) {
+    if (e.srcElement.tagName === 'SPAN' && e.srcElement.classList.contains('copy-code')) {
+      let code = e.currentTarget.querySelector('code');
+      var text = code.innerText;
+      if (e.srcElement.textContent === '复制成功') {
+        console.log('复制操作频率过高');
+        return;
+      }
+      e.srcElement.textContent = '复制成功';
+      (function (elem) {
+        setTimeout(() => {
+          if (elem.textContent === '复制成功') {
+            elem.textContent = '复制代码'
+          }
+        }, 1000);
+      })(e.srcElement)
+      Clipboard.copy(text);
+    }
+  }
+
+  let pres = document.querySelectorAll('pre');
+  pres.forEach(pre => {
+    let code = pre.querySelector('code');
+    let copyElem = document.createElement('span');
+    copyElem.classList.add('copy-code');
+    copyElem.textContent = '复制代码';
+    pre.appendChild(copyElem);
+    pre.onclick = copyCode
+  })
+</script>
+
+</html>
